@@ -33,8 +33,11 @@ public class UserController {
     }
 
     @PostMapping
-    public Usuario save(@RequestBody Usuario newUser) {
-        return userRepo.save(newUser);
+    public String save(@RequestBody Usuario newUser) {
+
+        userRepo.save(newUser);
+        return "Usuário cadastrado com sucesso!";
+
     }
 
     @PutMapping("/{id}")
@@ -44,11 +47,20 @@ public class UserController {
             if ((updateUser.getEmail() != null) && (user_db.getEmail() != updateUser.getEmail())) {
                 user_db.setEmail(updateUser.getEmail());
             }
-            if ((updateUser.getFirstName() != null) && (user_db.getFirstName() != updateUser.getFirstName())) {
-                user_db.setFirstName(updateUser.getFirstName());
+            if ((updateUser.getNome() != null) && (user_db.getNome() != updateUser.getNome())) {
+                user_db.setNome(updateUser.getNome());
             }
-            if ((updateUser.getLastName() != null) && (user_db.getLastName() != updateUser.getLastName())) {
-                user_db.setLastName(updateUser.getLastName());
+            if ((updateUser.getPerfil() != null) && (user_db.getPerfil() != updateUser.getPerfil())) {
+                user_db.setPerfil(updateUser.getPerfil());
+            }
+            if ((updateUser.getCep() != null) && (user_db.getCep() != updateUser.getCep())) {
+                user_db.setCep(updateUser.getCep());
+            }
+            if ((updateUser.getNascimento() != null) && (user_db.getNascimento() != updateUser.getNascimento())) {
+                user_db.setNascimento(updateUser.getNascimento());
+            }
+            if ((updateUser.getEndereco() != null) && (user_db.getEndereco() != updateUser.getEndereco())) {
+                user_db.setEndereco(updateUser.getEndereco());
             }
             userRepo.save(user_db);
             return "usuario " + user_db.fullName() + " atualizado com sucesso";

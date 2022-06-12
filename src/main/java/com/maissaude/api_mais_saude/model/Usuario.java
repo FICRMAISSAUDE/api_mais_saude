@@ -4,22 +4,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.NonNull;
+
 @Entity
 public class Usuario {
     private Long id;
     @NonNull
-    private String firstName;
-    private String lastName;
+    private String nome;
+    private String perfil;
     private String email;
+    private String cep;
+    private String nascimento;
+    private String endereco;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String firstName, String lastName, String email) {
+    public Usuario(Long id, String nome, String perfil, String email, String cep, String nascimento, String endereco) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.nome = nome;
+        this.perfil = perfil;
         this.email = email;
+        this.cep = cep;
+        this.nascimento = nascimento;
+        this.endereco = endereco;
     }
 
     @Id
@@ -32,20 +40,20 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNome() {
+        return nome;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPerfil() {
+        return perfil;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
     public String getEmail() {
@@ -56,8 +64,32 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     public String fullName() {
-        return this.firstName + " " + this.lastName;
+        return this.nome + " " + this.perfil;
     }
 
 }
