@@ -22,27 +22,36 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+    // Consultar todos os Usuários
     @GetMapping
     public List<Usuario> findAll() {
         return userRepo.findAll();
     }
 
+    // Consultar os Usuários indivdualmente inserindo o /id
     @GetMapping("/{id}")
     public Usuario show(@PathVariable Long id) {
         return userRepo.findById(id).orElse(null);
     }
 
+    // Cadastra Usuário
     @PostMapping
     public String save(@RequestBody Usuario newUser) {
-
-        userRepo.save(newUser);
-        return "Usuário cadastrado com sucesso!";
-
+        // validando se ja existe o Usuário antes de cadastrar
+        if (userRepo.existsById(newUser.getId())) {
+            return "Usuário já cadastrado!";
+        } else {
+            userRepo.save(newUser);
+            return "Usuário cadastrado com sucesso!";
+        }
     }
 
+    // Atualizar Usuário
     @PutMapping("/{id}")
     public String update(@RequestBody Usuario updateUser, @PathVariable Long id) {
         if (userRepo.existsById(id)) {
+            // Verificando cada campo se é nulo ou diferente do que ja estava inserido
+            // para poder atualizar
             Usuario user_db = userRepo.findById(id).orElse(null);
             if ((updateUser.getEmail() != null) && (user_db.getEmail() != updateUser.getEmail())) {
                 user_db.setEmail(updateUser.getEmail());
@@ -69,6 +78,7 @@ public class UserController {
         }
     }
 
+    // Deleter Usuário
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         if (userRepo.existsById(id)) {

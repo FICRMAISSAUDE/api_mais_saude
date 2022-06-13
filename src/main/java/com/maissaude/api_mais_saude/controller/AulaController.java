@@ -22,34 +22,44 @@ public class AulaController {
     @Autowired
     private AulaRepo aulaRepo;
 
+    // Consultar todas as aulas
     @GetMapping
     public List<Aula> findAll() {
         return aulaRepo.findAll();
     }
 
+    // Consultar as Aulas individualmente inserindo o /id
     @GetMapping("/{idAula}")
     public Aula show(@PathVariable Long idAula) {
         return aulaRepo.findById(idAula).orElse(null);
     }
 
+    // Cadastra Aulas
     @PostMapping
     public String save(@RequestBody Aula newAula) {
-        if ((newAula.getIdAula() != null) && (newAula.getNomeAula() != null) && (newAula.getLocal() != null)
-                && (newAula.getData() != null) && (newAula.getHorario() != null)) {
-            aulaRepo.save(newAula);
-
-            return "Aula cadastrada com sucesso!";
-
+        // validando se ja existe a Aula antes de cadastrar
+        if (aulaRepo.existsById(newAula.getIdAula())) {
+            return "Aula já cadastrada!";
         } else {
-            return "Preencha todos os campos!";
+            if ((newAula.getIdAula() != null) && (newAula.getNomeAula() != null) && (newAula.getLocal() != null)
+                    && (newAula.getData() != null) && (newAula.getHorario() != null)) {
+                aulaRepo.save(newAula);
 
+                return "Aula cadastrada com sucesso!";
+
+            } else {
+                return "Preencha todos os campos!";
+
+            }
         }
-
     }
 
+    // Atualizar Aulas
     @PutMapping("/{idAula}")
     public String update(@RequestBody Aula updateUser, @PathVariable Long idAula) {
         if (aulaRepo.existsById(idAula)) {
+            // Verificando cada campo se é nulo ou diferente do que ja estava inserido
+            // para poder atualizar
             Aula user_db = aulaRepo.findById(idAula).orElse(null);
             if ((updateUser.getNomeAula() != null) && (user_db.getNomeAula() != updateUser.getNomeAula())) {
                 user_db.setNomeAula(updateUser.getNomeAula());
@@ -77,6 +87,7 @@ public class AulaController {
         }
     }
 
+    // Deleter Usuário
     @DeleteMapping("/{idAula}")
     public String delete(@PathVariable Long idAula) {
         if (aulaRepo.existsById(idAula)) {
