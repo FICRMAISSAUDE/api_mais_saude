@@ -37,12 +37,13 @@ public class UserController {
     // Cadastra Usuário
     @PostMapping
     public String save(@RequestBody Usuario newUser) {
-        // validando se ja existe o Usuário antes de cadastrar
-        if (userRepo.existsById(newUser.getId())) {
-            return "Usuário já cadastrado!";
-        } else {
+        // validando os campos obrigatórios antes de cadastrar
+        if ((newUser.getEmail() != null) && (newUser.getSenha() != null)
+                && (newUser.getPerfil() != null)) {
             userRepo.save(newUser);
             return "Usuário cadastrado com sucesso!";
+        } else {
+            return "Preencha todos os campos!";
         }
     }
 
@@ -72,7 +73,7 @@ public class UserController {
                 user_db.setEndereco(updateUser.getEndereco());
             }
             userRepo.save(user_db);
-            return "usuario " + user_db.fullName() + " atualizado com sucesso";
+            return "Usuário " + user_db.fullName() + " atualizado com sucesso";
         } else {
             return "Usuário não encontrado!";
         }

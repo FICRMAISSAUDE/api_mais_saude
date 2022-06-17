@@ -38,19 +38,14 @@ public class AulaController {
     @PostMapping
     public String save(@RequestBody Aula newAula) {
         // validando se ja existe a Aula antes de cadastrar
-        if (aulaRepo.existsById(newAula.getIdAula())) {
-            return "Aula já cadastrada!";
+
+        if ((newAula.getNomeAula() != null) && (newAula.getLocal() != null)
+                && (newAula.getData() != null) && (newAula.getHorario() != null)) {
+            aulaRepo.save(newAula);
+            return "Aula cadastrada com sucesso!";
+
         } else {
-            if ((newAula.getIdAula() != null) && (newAula.getNomeAula() != null) && (newAula.getLocal() != null)
-                    && (newAula.getData() != null) && (newAula.getHorario() != null)) {
-                aulaRepo.save(newAula);
-
-                return "Aula cadastrada com sucesso!";
-
-            } else {
-                return "Preencha todos os campos!";
-
-            }
+            return "Preencha todos os campos!";
         }
     }
 
@@ -87,7 +82,7 @@ public class AulaController {
         }
     }
 
-    // Deleter Usuário
+    // Deleter Aula
     @DeleteMapping("/{idAula}")
     public String delete(@PathVariable Long idAula) {
         if (aulaRepo.existsById(idAula)) {

@@ -13,6 +13,7 @@ public class Usuario {
     private String nome;
     private String perfil;
     private String email;
+    private String senha;
     private String cep;
     private String nascimento;
     private String endereco;
@@ -20,11 +21,13 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String perfil, String email, String cep, String nascimento, String endereco) {
+    public Usuario(Long id, String nome, String perfil, String email, String senha, String cep, String nascimento,
+            String endereco) {
         this.id = id;
         this.nome = nome;
         this.perfil = perfil;
         this.email = email;
+        this.senha = senha;
         this.cep = cep;
         this.nascimento = nascimento;
         this.endereco = endereco;
@@ -62,6 +65,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getCep() {
