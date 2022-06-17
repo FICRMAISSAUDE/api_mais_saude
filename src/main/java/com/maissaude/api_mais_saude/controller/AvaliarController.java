@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maissaude.api_mais_saude.model.Avaliar;
+import com.maissaude.api_mais_saude.repository.AulaRepo;
 import com.maissaude.api_mais_saude.repository.AvaliarRepo;
 
 @RestController
@@ -42,6 +43,7 @@ public class AvaliarController {
         if ((newAvaliar.getAulaId() != null) && (newAvaliar.getIdUsuario() != null)
                 && (newAvaliar.getEstrela() != null)
                 && (newAvaliar.getComentario() != null)) {
+
             avaliarRepo.save(newAvaliar);
 
             return "Aula avaliada com sucesso!";
